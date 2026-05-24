@@ -1,0 +1,52 @@
+# ─────────────────────────────────────────────
+# Copy this file to terraform.tfvars and fill in
+# your real values. Never commit tfvars to git.
+# ─────────────────────────────────────────────
+
+# Azure
+azure_subscription_id = "00000000-0000-0000-0000-000000000000"
+azure_tenant_id       = "00000000-0000-0000-0000-000000000000"
+
+# Databricks account
+# Find this at: https://accounts.azuredatabricks.net → account settings
+databricks_account_id = "00000000-0000-0000-0000-000000000000"
+
+# Service principal used by Terraform to authenticate to both Databricks providers.
+# This SP must have:
+#   - "Contributor" on the Azure subscription
+#   - "Account Admin" role in the Databricks account console
+databricks_sp_client_id     = "00000000-0000-0000-0000-000000000000"
+databricks_sp_client_secret = "your-client-secret-here"
+
+# Project settings
+project     = "analytics"
+environment = "dev"
+location    = "canadacentral"   # Must have a Databricks metastore available
+
+# Unity Catalog
+metastore_admins = [
+  "data-platform-admins",   # Entra ID group name
+]
+
+catalog_configs = {
+  raw = {
+    comment      = "Landing zone — raw ingested data."
+    data_admins  = ["data-engineers"]
+    data_readers = ["data-analysts"]
+  }
+  silver = {
+    comment      = "Cleaned and conformed data layer."
+    data_admins  = ["data-engineers"]
+    data_readers = ["data-analysts", "data-scientists"]
+  }
+  gold = {
+    comment      = "Business-ready aggregations."
+    data_admins  = ["data-engineers"]
+    data_readers = ["data-analysts", "data-scientists", "bi-users"]
+  }
+}
+
+tags = {
+  cost_center = "data-platform"
+  owner       = "data-engineering-team"
+}
