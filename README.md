@@ -105,3 +105,7 @@ Then run `terraform apply` — it adds only the new catalog without touching exi
 - **State file security** — the tfstate file contains sensitive resource IDs.
   Use the commented-out `backend "azurerm"` block in `providers.tf` to store
   state in Azure Blob Storage with encryption at rest.
+  
+The architecture diagram showing what the metastore is and what lives inside it
+  <img width="1332" height="1120" alt="image" src="https://github.com/user-attachments/assets/e5861428-c1f5-447d-a368-a017b14c5276" />
+
